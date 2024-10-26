@@ -18,10 +18,24 @@
     margin: 3px;
 }
 
+span.score {
+    font-size: 4em;
+    font-weight: 700;
+    color: #f00;
+}
+
 .container {
     border: 1px solid black;
     margin: 5px;
     width: 30%;
+}
+
+.scores {
+    display: flex;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
 }
 
 </style>
@@ -30,7 +44,7 @@
 
     <div class="flex-container">
         <div class="container">
-            Player 1
+            <input id="player-1-name" value="Player 1">
             <br /><br />
 
             <div class="button-container">
@@ -48,6 +62,46 @@
                 <button class="button">Shot Player 2</button>
                 <button class="button">Timeout</button>
             </div>
+        </div>
+
+        <div>
+            <span class="score" id="score">
+                0 - 0
+            </span>
+
+            <div class="scores">
+                <table id="player-1-scores">
+                    <tr><td>Player 1</td></tr>
+                    <tr><td>Winners</td><td>0</td></tr>
+                    <tr><td>Unforced errors</td><td>0</td></tr>
+                    <tr><td>Lobs</td><td>0</td></tr>
+                    <tr><td>Dink</td><td>0</td></tr>
+                    <tr><td>Erne</td><td>0</td></tr>
+                    <tr><td>ATP</td><td>0</td></tr>
+                    <tr><td>Third shot drop</td><td>0</td></tr>
+                    <tr><td>Speed up won</td><td>0</td></tr>
+                    <tr><td>Speed up lost</td><td>0</td></tr>
+                    <tr><td>Shot player 1</td><td>0</td></tr>
+                    <tr><td>Shot player 2</td><td>0</td></tr>
+                </table>
+
+                <table id="player-2-scores">
+                    <tr><td>Player 2</td></tr>
+                    <tr><td>Winners</td><td>0</td></tr>
+                    <tr><td>Unforced errors</td><td>0</td></tr>
+                    <tr><td>Lobs</td><td>0</td></tr>
+                    <tr><td>Dink</td><td>0</td></tr>
+                    <tr><td>Erne</td><td>0</td></tr>
+                    <tr><td>ATP</td><td>0</td></tr>
+                    <tr><td>Third shot drop</td><td>0</td></tr>
+                    <tr><td>Speed up won</td><td>0</td></tr>
+                    <tr><td>Speed up lost</td><td>0</td></tr>
+                    <tr><td>Shot player 1</td><td>0</td></tr>
+                    <tr><td>Shot player 2</td><td>0</td></tr>
+
+                </table>
+            </div>
+
         </div>
 
         <div class="container">
