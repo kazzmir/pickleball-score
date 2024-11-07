@@ -10,12 +10,12 @@
 
 .button-container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: space-around;
 }
 
 .button {
-    margin: 3px;
+    margin: 5px;
 }
 
 span.score {
@@ -28,6 +28,12 @@ span.score {
     border: 1px solid black;
     margin: 5px;
     width: 30%;
+}
+
+div.row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 .scores {
@@ -48,21 +54,35 @@ tr:nth-child(even) {
             <br /><br />
 
             <div class="button-container">
-                <button class="button">Winner</button>
-                <button class="button">Unforced error</button>
-                <button class="button">Lob</button>
-                <button class="button">Dink</button>
-                <button class="button">Erne</button>
-                <button class="button">ATP</button>
-                <button class="button">Third shot drop</button>
-                <button class="button">Third shot drive</button>
-                <button class="button">Speed up won</button>
-                <button class="button">Speed up lost</button>
-                <button class="button">Shot Player 1</button>
-                <button class="button">Shot Player 2</button>
-                <button class="button">Timeout</button>
-                <button class="button">+1</button>
-                <button class="button">-1</button>
+                <div class="row">
+                    <button class="button">Winner</button>
+                    <button class="button">Unforced error</button>
+                </div>
+                <div class="row">
+                    <button class="button">Third shot drop</button>
+                    <button class="button">Third shot drive</button>
+                </div>
+                <div class="row">
+                    <button class="button">Speed up won</button>
+                    <button class="button">Speed up lost</button>
+                </div>
+                <div class="row">
+                    <button class="button">Shot Player 1</button>
+                    <button class="button">Shot Player 2</button>
+                </div>
+                <div class="row">
+                    <button class="button">Dink</button>
+                    <button class="button">Timeout</button>
+                </div>
+                <div class="row">
+                    <button class="button">+1</button>
+                    <button class="button">-1</button>
+                </div>
+                <div class="row">
+                    <button class="button">Lob</button>
+                    <button class="button">Erne</button>
+                    <button class="button">ATP</button>
+                </div>
             </div>
         </div>
 
