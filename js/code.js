@@ -5,6 +5,8 @@ function makePlayer(id){
         'stats': {
             'winners': 0,
             'errors': 0,
+            'third-shot-drop': 0,
+            'third-shot-drive': 0,
         }
     }
 }
@@ -28,6 +30,8 @@ function updateStats(player){
     elem(`player${player.id}-score`).innerText = player.score;
     elem(`player${player.id}-winners`).innerText = player.stats.winners;
     elem(`player${player.id}-errors`).innerText = player.stats.errors;
+    elem(`player${player.id}-third-shot-drop`).innerText = player.stats['third-shot-drop'];
+    elem(`player${player.id}-third-shot-drive`).innerText = player.stats['third-shot-drive'];
 }
 
 function incrementScore(player, amount){
@@ -36,6 +40,24 @@ function incrementScore(player, amount){
 
     undoLog.push(() => {
         player.score -= amount;
+        updateStats(player);
+    })
+}
+
+function incrementThirdShotDrop(player){
+    player.stats['third-shot-drop'] += 1;
+    updateStats(player);
+    undoLog.push(() => {
+        player.stats['third-shot-drop'] -= 1;
+        updateStats(player);
+    })
+}
+
+function incrementThirdShotDrive(player){
+    player.stats['third-shot-drive'] += 1;
+    updateStats(player);
+    undoLog.push(() => {
+        player.stats['third-shot-drive'] -= 1;
         updateStats(player);
     })
 }
@@ -68,6 +90,14 @@ function decrementPlayer1Score(){
     incrementScore(player1, -1);
 }
 
+function incrementPlayer1ThirdShotDrop(){
+    incrementThirdShotDrop(player1);
+}
+
+function incrementPlayer1ThirdShotDrive(){
+    incrementThirdShotDrive(player1);
+}
+
 function incrementPlayer1Winners(){
     incrementWinners(player1);
 }
@@ -90,4 +120,12 @@ function incrementPlayer2Winners(){
 
 function incrementPlayer2Errors(){
     incrementErrors(player2);
+}
+
+function incrementPlayer2ThirdShotDrop(){
+    incrementThirdShotDrop(player2);
+}
+
+function incrementPlayer2ThirdShotDrive(){
+    incrementThirdShotDrive(player2);
 }

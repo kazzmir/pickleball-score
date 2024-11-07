@@ -63,8 +63,8 @@ tr:nth-child(even) {
                     <button class="button" onclick="incrementPlayer1Errors()">Unforced error</button>
                 </div>
                 <div class="row">
-                    <button class="button">Third shot drop</button>
-                    <button class="button">Third shot drive</button>
+                    <button class="button" onclick="incrementPlayer1ThirdShotDrop()">Third shot drop</button>
+                    <button class="button" onclick="incrementPlayer1ThirdShotDrive()">Third shot drive</button>
                 </div>
                 <div class="row">
                     <button class="button">Speed up won</button>
@@ -108,8 +108,8 @@ tr:nth-child(even) {
                     <tr><td>Unforced errors</td><td><span id="player1-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
                     <tr><td>Dinks</td><td>0</td></tr>
-                    <tr><td>Third shot drop</td><td>0</td></tr>
-                    <tr><td>Third shot drive</td><td>0</td></tr>
+                    <tr><td>Third shot drop</td><td><span id="player1-third-shot-drop">0</span></td></tr>
+                    <tr><td>Third shot drive</td><td><span id="player1-third-shot-drive">0</span></td></tr>
                     <tr><td>Speed up won</td><td>0</td></tr>
                     <tr><td>Speed up lost</td><td>0</td></tr>
                     <tr><td>Shot player 1</td><td>0</td></tr>
@@ -129,8 +129,8 @@ tr:nth-child(even) {
                     <tr><td>Unforced errors</td><td><span id="player2-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
                     <tr><td>Dinks</td><td>0</td></tr>
-                    <tr><td>Third shot drop</td><td>0</td></tr>
-                    <tr><td>Third shot drive</td><td>0</td></tr>
+                    <tr><td>Third shot drop</td><td><span id="player2-third-shot-drop">0</span></td></tr>
+                    <tr><td>Third shot drive</td><td><span id="player2-third-shot-drive">0</span></td></tr>
                     <tr><td>Speed up won</td><td>0</td></tr>
                     <tr><td>Speed up lost</td><td>0</td></tr>
                     <tr><td>Shot player 1</td><td>0</td></tr>
@@ -152,8 +152,8 @@ tr:nth-child(even) {
                     <button class="button" onclick="incrementPlayer2Errors()">Unforced error</button>
                 </div>
                 <div class="row">
-                    <button class="button">Third shot drop</button>
-                    <button class="button">Third shot drive</button>
+                    <button class="button" onclick="incrementPlayer2ThirdShotDrop()">Third shot drop</button>
+                    <button class="button" onclick="incrementPlayer2ThirdShotDrive()">Third shot drive</button>
                 </div>
                 <div class="row">
                     <button class="button">Speed up won</button>
