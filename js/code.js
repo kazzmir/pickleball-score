@@ -11,6 +11,7 @@ function makePlayer(id){
             'dink': 0,
             'lob': 0,
             'erne': 0,
+            'atp': 0,
         }
     }
 }
@@ -41,6 +42,7 @@ function updateStats(player){
     elem(`player${player.id}-dink`).innerText = player.stats.dink;
     elem(`player${player.id}-lob`).innerText = player.stats.lob;
     elem(`player${player.id}-erne`).innerText = player.stats.erne;
+    elem(`player${player.id}-atp`).innerText = player.stats.atp;
 
     if (serveTurn == 1){
         elem('server').innerText = player1.name;
@@ -105,6 +107,16 @@ function maybeLosePoint(player){
             return maybeAddPoint(player1);
         }
     }
+}
+
+function incrementATP(player){
+    player.stats.atp += 1;
+    updateStats(player);
+
+    undoLog.push(() => {
+        player.stats.atp -= 1;
+        updateStats(player);
+    })
 }
 
 function incrementWinners(player){
@@ -191,6 +203,10 @@ function incrementPlayer1Lob(){
     incrementLob(player1);
 }
 
+function incrementPlayer1ATP(){
+    incrementATP(player1);
+}
+
 function incrementPlayer1Winners(){
     incrementWinners(player1);
 }
@@ -233,6 +249,10 @@ function incrementPlayer2Lob(){
 
 function incrementPlayer2Erne(){
     incrementErne(player2);
+}
+
+function incrementPlayer2ATP(){
+    incrementATP(player2);
 }
 
 function setPlayer1Name(){
