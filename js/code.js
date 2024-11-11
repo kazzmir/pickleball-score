@@ -9,6 +9,7 @@ function makePlayer(id){
             'third-shot-drop': 0,
             'third-shot-drive': 0,
             'dink': 0,
+            'lob': 0,
         }
     }
 }
@@ -37,6 +38,7 @@ function updateStats(player){
     elem(`player${player.id}-third-shot-drop`).innerText = player.stats['third-shot-drop'];
     elem(`player${player.id}-third-shot-drive`).innerText = player.stats['third-shot-drive'];
     elem(`player${player.id}-dink`).innerText = player.stats.dink;
+    elem(`player${player.id}-lob`).innerText = player.stats.lob;
 
     if (serveTurn == 1){
         elem('server').innerText = player1.name;
@@ -139,6 +141,16 @@ function incrementDink(player){
     })
 }
 
+function incrementLob(player){
+    player.stats.lob += 1;
+    updateStats(player);
+
+    undoLog.push(() => {
+        player.stats.lob -= 1;
+        updateStats(player);
+    })
+}
+
 function incrementPlayer1Score(){
     incrementScore(player1, 1);
 }
@@ -157,6 +169,10 @@ function incrementPlayer1ThirdShotDrive(){
 
 function incrementPlayer1Dink(){
     incrementDink(player1);
+}
+
+function incrementPlayer1Lob(){
+    incrementLob(player1);
 }
 
 function incrementPlayer1Winners(){
@@ -193,6 +209,10 @@ function incrementPlayer2ThirdShotDrive(){
 
 function incrementPlayer2Dink(){
     incrementDink(player2);
+}
+
+function incrementPlayer2Lob(){
+    incrementLob(player2);
 }
 
 function setPlayer1Name(){
