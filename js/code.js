@@ -2,6 +2,7 @@ function makePlayer(id){
     return {
         'score': 0,
         'id': id,
+        'name': `Player ${id}`,
         'stats': {
             'winners': 0,
             'errors': 0,
@@ -64,10 +65,12 @@ function incrementThirdShotDrive(player){
 
 function incrementWinners(player){
     player.stats.winners += 1;
+    player.score += 1
     updateStats(player);
 
     undoLog.push(() => {
         player.stats.winners -= 1;
+        player.score -= 1;
         updateStats(player);
     })
 }
@@ -128,4 +131,18 @@ function incrementPlayer2ThirdShotDrop(){
 
 function incrementPlayer2ThirdShotDrive(){
     incrementThirdShotDrive(player2);
+}
+
+function setPlayer1Name(){
+    let input = document.getElementById('player1-name-input');
+    let name = document.getElementById('player1-name');
+    player1.name = input.value;
+    name.innerText = player1.name
+}
+
+function setPlayer2Name(){
+    let input = document.getElementById('player2-name-input');
+    let name = document.getElementById('player2-name');
+    player2.name = input.value;
+    name.innerText = player2.name
 }

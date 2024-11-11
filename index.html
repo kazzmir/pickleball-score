@@ -54,7 +54,7 @@ tr:nth-child(even) {
 
     <div class="flex-container">
         <div class="container">
-            <input id="player-1-name" value="Player 1">
+            <input id="player1-name-input" value="Player 1" oninput="setPlayer1Name()">
             <br /><br />
 
             <div class="button-container">
@@ -103,7 +103,7 @@ tr:nth-child(even) {
 
             <div class="scores">
                 <table id="player-1-scores">
-                    <tr><td>Player 1</td></tr>
+                    <tr><td><span id="player1-name">Player 1</span></td></tr>
                     <tr><td>Winners</td><td><span id="player1-winners">0</span></td></tr>
                     <tr><td>Unforced errors</td><td><span id="player1-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
@@ -124,7 +124,7 @@ tr:nth-child(even) {
                 </span>
 
                 <table id="player-2-scores">
-                    <tr><td>Player 2</td></tr>
+                    <tr><td><span id="player2-name">Player 2</span></td></tr>
                     <tr><td>Winners</td><td><span id="player2-winners">0</span></td></tr>
                     <tr><td>Unforced errors</td><td><span id="player2-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
@@ -143,7 +143,7 @@ tr:nth-child(even) {
         </div>
 
         <div class="container">
-            <input id="player-2-name" value="Player 2">
+            <input id="player2-name-input" value="Player 2" oninput="setPlayer2Name()">
             <br /><br />
 
             <div class="button-container">
