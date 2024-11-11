@@ -10,6 +10,7 @@ function makePlayer(id){
             'third-shot-drive': 0,
             'dink': 0,
             'lob': 0,
+            'erne': 0,
         }
     }
 }
@@ -39,6 +40,7 @@ function updateStats(player){
     elem(`player${player.id}-third-shot-drive`).innerText = player.stats['third-shot-drive'];
     elem(`player${player.id}-dink`).innerText = player.stats.dink;
     elem(`player${player.id}-lob`).innerText = player.stats.lob;
+    elem(`player${player.id}-erne`).innerText = player.stats.erne;
 
     if (serveTurn == 1){
         elem('server').innerText = player1.name;
@@ -151,8 +153,22 @@ function incrementLob(player){
     })
 }
 
+function incrementErne(player){
+    player.stats.erne += 1;
+    updateStats(player);
+
+    undoLog.push(() => {
+        player.stats.erne -= 1;
+        updateStats(player);
+    })
+}
+
 function incrementPlayer1Score(){
     incrementScore(player1, 1);
+}
+
+function incrementPlayer1Erne(){
+    incrementErne(player1);
 }
 
 function decrementPlayer1Score(){
@@ -213,6 +229,10 @@ function incrementPlayer2Dink(){
 
 function incrementPlayer2Lob(){
     incrementLob(player2);
+}
+
+function incrementPlayer2Erne(){
+    incrementErne(player2);
 }
 
 function setPlayer1Name(){
