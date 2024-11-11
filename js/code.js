@@ -8,6 +8,7 @@ function makePlayer(id){
             'errors': 0,
             'third-shot-drop': 0,
             'third-shot-drive': 0,
+            'dink': 0,
         }
     }
 }
@@ -35,6 +36,7 @@ function updateStats(player){
     elem(`player${player.id}-errors`).innerText = player.stats.errors;
     elem(`player${player.id}-third-shot-drop`).innerText = player.stats['third-shot-drop'];
     elem(`player${player.id}-third-shot-drive`).innerText = player.stats['third-shot-drive'];
+    elem(`player${player.id}-dink`).innerText = player.stats.dink;
 
     if (serveTurn == 1){
         elem('server').innerText = player1.name;
@@ -74,12 +76,12 @@ function incrementThirdShotDrive(player){
 function maybeAddPoint(player){
     if (serveTurn == player.id){
         player.score += 1;
-        return function(){
+        return () => {
             player.score -= 1;
         }
     } else {
         serveTurn = 3 - player.id;
-        return function(){
+        return () => {
             serveTurn = player.id;
         }
     }
@@ -89,7 +91,7 @@ function maybeLosePoint(player){
     // if the currently serving player lost the point, then add a point to the other player
     if (serveTurn == player.id){
         serveTurn = 3 - player.id;
-        return function(){
+        return () => {
             serveTurn = player.id;
         }
     } else {
@@ -127,6 +129,16 @@ function incrementErrors(player){
     })
 }
 
+function incrementDink(player){
+    player.stats.dink += 1
+    updateStats(player);
+
+    undoLog.push(() => {
+        player.stats.dink -= 1;
+        updateStats(player);
+    })
+}
+
 function incrementPlayer1Score(){
     incrementScore(player1, 1);
 }
@@ -141,6 +153,10 @@ function incrementPlayer1ThirdShotDrop(){
 
 function incrementPlayer1ThirdShotDrive(){
     incrementThirdShotDrive(player1);
+}
+
+function incrementPlayer1Dink(){
+    incrementDink(player1);
 }
 
 function incrementPlayer1Winners(){
@@ -173,6 +189,10 @@ function incrementPlayer2ThirdShotDrop(){
 
 function incrementPlayer2ThirdShotDrive(){
     incrementThirdShotDrive(player2);
+}
+
+function incrementPlayer2Dink(){
+    incrementDink(player2);
 }
 
 function setPlayer1Name(){

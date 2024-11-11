@@ -80,7 +80,7 @@ tr:nth-child(even) {
                     <button class="button">Shot Player 2</button>
                 </div>
                 <div class="row">
-                    <button class="button">Dink</button>
+                    <button class="button" onclick="incrementPlayer1Dink()">Dink</button>
                     <button class="button">Timeout</button>
                 </div>
                 <div class="row">
@@ -119,7 +119,7 @@ tr:nth-child(even) {
                     <tr><td>Winners</td><td><span id="player1-winners">0</span></td></tr>
                     <tr><td>Unforced errors</td><td><span id="player1-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
-                    <tr><td>Dinks</td><td>0</td></tr>
+                    <tr><td>Dinks</td><td><span id="player1-dink">0</span></td></tr>
                     <tr><td>Third shot drop</td><td><span id="player1-third-shot-drop">0</span></td></tr>
                     <tr><td>Third shot drive</td><td><span id="player1-third-shot-drive">0</span></td></tr>
                     <tr><td>Speed up won</td><td>0</td></tr>
@@ -140,7 +140,7 @@ tr:nth-child(even) {
                     <tr><td>Winners</td><td><span id="player2-winners">0</span></td></tr>
                     <tr><td>Unforced errors</td><td><span id="player2-errors">0</span></td></tr>
                     <tr><td>Lobs</td><td>0</td></tr>
-                    <tr><td>Dinks</td><td>0</td></tr>
+                    <tr><td>Dinks</td><td><span id="player2-dink">0</span></td></tr>
                     <tr><td>Third shot drop</td><td><span id="player2-third-shot-drop">0</span></td></tr>
                     <tr><td>Third shot drive</td><td><span id="player2-third-shot-drive">0</span></td></tr>
                     <tr><td>Speed up won</td><td>0</td></tr>
@@ -176,7 +176,7 @@ tr:nth-child(even) {
                     <button class="button">Shot Player 2</button>
                 </div>
                 <div class="row">
-                    <button class="button">Dink</button>
+                    <button class="button" onclick="incrementPlayer2Dink()">Dink</button>
                     <button class="button">Timeout</button>
                 </div>
                 <div class="row">
