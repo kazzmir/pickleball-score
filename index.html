@@ -39,6 +39,11 @@ div.row {
     justify-content: center;
 }
 
+span.server {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
 .scores {
     display: flex;
 }
@@ -100,6 +105,13 @@ tr:nth-child(even) {
                 -
                 <span id="player2-score">0</span>
             </span>
+
+            <br />
+
+            <div>
+                <span class="server">Server:</span>
+                <span id="server" class="server">Player 1</span>
+            </div>
 
             <div class="scores">
                 <table id="player-1-scores">

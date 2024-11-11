@@ -12,6 +12,8 @@ function makePlayer(id){
     }
 }
 
+let serveTurn = 1;
+
 let player1 = makePlayer(1);
 let player2 = makePlayer(2);
 
@@ -33,6 +35,12 @@ function updateStats(player){
     elem(`player${player.id}-errors`).innerText = player.stats.errors;
     elem(`player${player.id}-third-shot-drop`).innerText = player.stats['third-shot-drop'];
     elem(`player${player.id}-third-shot-drive`).innerText = player.stats['third-shot-drive'];
+
+    if (serveTurn == 1){
+        elem('server').innerText = player1.name;
+    } else {
+        elem('server').innerText = player2.name;
+    }
 }
 
 function incrementScore(player, amount){
@@ -63,25 +71,59 @@ function incrementThirdShotDrive(player){
     })
 }
 
+function maybeAddPoint(player){
+    if (serveTurn == player.id){
+        player.score += 1;
+        return function(){
+            player.score -= 1;
+        }
+    } else {
+        serveTurn = 3 - player.id;
+        return function(){
+            serveTurn = player.id;
+        }
+    }
+}
+
+function maybeLosePoint(player){
+    // if the currently serving player lost the point, then add a point to the other player
+    if (serveTurn == player.id){
+        serveTurn = 3 - player.id;
+        return function(){
+            serveTurn = player.id;
+        }
+    } else {
+        if (player1.id == player.id){
+            return maybeAddPoint(player2);
+        } else {
+            return maybeAddPoint(player1);
+        }
+    }
+}
+
 function incrementWinners(player){
     player.stats.winners += 1;
-    player.score += 1
+    let undo = maybeAddPoint(player);
     updateStats(player);
 
     undoLog.push(() => {
         player.stats.winners -= 1;
-        player.score -= 1;
+        undo();
         updateStats(player);
     })
 }
 
 function incrementErrors(player){
     player.stats.errors += 1;
-    updateStats(player);
+    let undo = maybeLosePoint(player);
+    updateStats(player1);
+    updateStats(player2);
 
     undoLog.push(() => {
         player.stats.errors -= 1;
-        updateStats(player);
+        undo();
+        updateStats(player1);
+        updateStats(player2);
     })
 }
 
