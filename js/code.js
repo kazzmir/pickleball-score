@@ -27,6 +27,30 @@ function elem(id){
     return document.getElementById(id);
 }
 
+function init(){
+    var plot = elem('plot2')
+
+    let rallyLayout = {
+        title: 'Rally flow',
+        paper_bgcolor: '#eee',
+        plot_bgcolor: '#eee',
+        xaxis: {
+            title: 'Rally',
+            range: [1, 20]
+        },
+        yaxis: {
+            title: 'Score',
+            range: [0, 20],
+        },
+    }
+
+    let plotRuns = Plotly.newPlot(plot, [{x: [], y: []}, {x:[], y:[]}], rallyLayout)
+
+    window.onresize = () => {
+        Plotly.Plots.resize(plot)
+    }
+}
+
 function undo(){
     if (undoLog.length > 0){
         undoLog.pop()();

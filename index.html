@@ -1,5 +1,6 @@
-<html>
+<html lang="en">
 <head>
+    <script src="js/plotly-2.20.0.min.js" charset="utf-8"></script>
     <script src="js/code.js"></script>
 
 <style>
@@ -8,7 +9,12 @@
     display: flex;
     justify-content: space-between;
     align-items: top;
-    height: 90vh;
+    height: 45vh;
+}
+
+.flex-container-top {
+    display: flex;
+    flex-direction: column;
 }
 
 .button-container {
@@ -54,145 +60,150 @@ tr:nth-child(even) {
 
 </style>
 </head>
-<body>
+<body onload="init()">
     <h2>Pickleball Scoring App</h2>
 
-    <div class="flex-container">
-        <div class="container">
-            <input id="player1-name-input" value="Player 1" oninput="setPlayer1Name()">
-            <br /><br />
+    <div class="flex-container-top">
+        <div class="flex-container">
+            <div class="container">
+                <input id="player1-name-input" value="Player 1" oninput="setPlayer1Name()">
+                <br /><br />
 
-            <div class="button-container">
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer1Winners()">Winner</button>
-                    <button class="button" onclick="incrementPlayer1Errors()">Unforced error</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer1ThirdShotDrop()">Third shot drop</button>
-                    <button class="button" onclick="incrementPlayer1ThirdShotDrive()">Third shot drive</button>
-                </div>
-                <div class="row">
-                    <button class="button">Speed up won</button>
-                    <button class="button">Speed up lost</button>
-                </div>
-                <div class="row">
-                    <button class="button">Shot Player 1</button>
-                    <button class="button">Shot Player 2</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer1Dink()">Dink</button>
-                    <button class="button">Timeout</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer1Score()">+1</button>
-                    <button class="button" onclick="decrementPlayer1Score()">-1</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer1Lob()">Lob</button>
-                    <button class="button" onclick="incrementPlayer1Erne()">Erne</button>
-                    <button class="button" onclick="incrementPlayer1ATP()">ATP</button>
-                </div>
+                <div class="button-container">
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer1Winners()">Winner</button>
+                        <button class="button" onclick="incrementPlayer1Errors()">Unforced error</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer1ThirdShotDrop()">Third shot drop</button>
+                        <button class="button" onclick="incrementPlayer1ThirdShotDrive()">Third shot drive</button>
+                    </div>
+                    <div class="row">
+                        <button class="button">Speed up won</button>
+                        <button class="button">Speed up lost</button>
+                    </div>
+                    <div class="row">
+                        <button class="button">Shot Player 1</button>
+                        <button class="button">Shot Player 2</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer1Dink()">Dink</button>
+                        <button class="button">Timeout</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer1Score()">+1</button>
+                        <button class="button" onclick="decrementPlayer1Score()">-1</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer1Lob()">Lob</button>
+                        <button class="button" onclick="incrementPlayer1Erne()">Erne</button>
+                        <button class="button" onclick="incrementPlayer1ATP()">ATP</button>
+                    </div>
 
-                <div class="row">
-                    <button class="button" onclick="undo()">Undo</button>
+                    <div class="row">
+                        <button class="button" onclick="undo()">Undo</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div>
-            <span class="score" id="score">
-                <span id="player1-score">0</span>
-                -
-                <span id="player2-score">0</span>
-            </span>
-
-            <br />
 
             <div>
-                <span class="server">Server:</span>
-                <span id="server" class="server">Player 1</span>
-            </div>
-
-            <div class="scores">
-                <table id="player-1-scores">
-                    <tr><td><span id="player1-name">Player 1</span></td></tr>
-                    <tr><td>Winners</td><td><span id="player1-winners">0</span></td></tr>
-                    <tr><td>Unforced errors</td><td><span id="player1-errors">0</span></td></tr>
-                    <tr><td>Lobs</td><td><span id="player1-lob">0</span></td></tr>
-                    <tr><td>Dinks</td><td><span id="player1-dink">0</span></td></tr>
-                    <tr><td>Third shot drop</td><td><span id="player1-third-shot-drop">0</span></td></tr>
-                    <tr><td>Third shot drive</td><td><span id="player1-third-shot-drive">0</span></td></tr>
-                    <tr><td>Speed up won</td><td>0</td></tr>
-                    <tr><td>Speed up lost</td><td>0</td></tr>
-                    <tr><td>Shot player 1</td><td>0</td></tr>
-                    <tr><td>Shot player 2</td><td>0</td></tr>
-                    <tr><td>Erne</td><td><span id="player1-erne">0</span></td></tr>
-                    <tr><td>ATP</td><td><span id="player1-atp">0</span></td></tr>
-                </table>
-
-                <span>
-                    &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp;
+                <span class="score" id="score">
+                    <span id="player1-score">0</span>
+                    -
+                    <span id="player2-score">0</span>
                 </span>
 
-                <table id="player-2-scores">
-                    <tr><td><span id="player2-name">Player 2</span></td></tr>
-                    <tr><td>Winners</td><td><span id="player2-winners">0</span></td></tr>
-                    <tr><td>Unforced errors</td><td><span id="player2-errors">0</span></td></tr>
-                    <tr><td>Lobs</td><td><span id="player2-lob">0</span></td></tr>
-                    <tr><td>Dinks</td><td><span id="player2-dink">0</span></td></tr>
-                    <tr><td>Third shot drop</td><td><span id="player2-third-shot-drop">0</span></td></tr>
-                    <tr><td>Third shot drive</td><td><span id="player2-third-shot-drive">0</span></td></tr>
-                    <tr><td>Speed up won</td><td>0</td></tr>
-                    <tr><td>Speed up lost</td><td>0</td></tr>
-                    <tr><td>Shot player 1</td><td>0</td></tr>
-                    <tr><td>Shot player 2</td><td>0</td></tr>
-                    <tr><td>Erne</td><td><span id="player2-erne">0</span></td></tr>
-                    <tr><td>ATP</td><td><span id="player2-atp">0</span></td></tr>
-                </table>
+                <br />
+
+                <div>
+                    <span class="server">Server:</span>
+                    <span id="server" class="server">Player 1</span>
+                </div>
+
+                <div class="scores">
+                    <table id="player-1-scores">
+                        <tr><td><span id="player1-name">Player 1</span></td></tr>
+                        <tr><td>Winners</td><td><span id="player1-winners">0</span></td></tr>
+                        <tr><td>Unforced errors</td><td><span id="player1-errors">0</span></td></tr>
+                        <tr><td>Lobs</td><td><span id="player1-lob">0</span></td></tr>
+                        <tr><td>Dinks</td><td><span id="player1-dink">0</span></td></tr>
+                        <tr><td>Third shot drop</td><td><span id="player1-third-shot-drop">0</span></td></tr>
+                        <tr><td>Third shot drive</td><td><span id="player1-third-shot-drive">0</span></td></tr>
+                        <tr><td>Speed up won</td><td>0</td></tr>
+                        <tr><td>Speed up lost</td><td>0</td></tr>
+                        <tr><td>Shot player 1</td><td>0</td></tr>
+                        <tr><td>Shot player 2</td><td>0</td></tr>
+                        <tr><td>Erne</td><td><span id="player1-erne">0</span></td></tr>
+                        <tr><td>ATP</td><td><span id="player1-atp">0</span></td></tr>
+                    </table>
+
+                    <span>
+                        &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp;
+                    </span>
+
+                    <table id="player-2-scores">
+                        <tr><td><span id="player2-name">Player 2</span></td></tr>
+                        <tr><td>Winners</td><td><span id="player2-winners">0</span></td></tr>
+                        <tr><td>Unforced errors</td><td><span id="player2-errors">0</span></td></tr>
+                        <tr><td>Lobs</td><td><span id="player2-lob">0</span></td></tr>
+                        <tr><td>Dinks</td><td><span id="player2-dink">0</span></td></tr>
+                        <tr><td>Third shot drop</td><td><span id="player2-third-shot-drop">0</span></td></tr>
+                        <tr><td>Third shot drive</td><td><span id="player2-third-shot-drive">0</span></td></tr>
+                        <tr><td>Speed up won</td><td>0</td></tr>
+                        <tr><td>Speed up lost</td><td>0</td></tr>
+                        <tr><td>Shot player 1</td><td>0</td></tr>
+                        <tr><td>Shot player 2</td><td>0</td></tr>
+                        <tr><td>Erne</td><td><span id="player2-erne">0</span></td></tr>
+                        <tr><td>ATP</td><td><span id="player2-atp">0</span></td></tr>
+                    </table>
+                </div>
+
             </div>
 
+            <div class="container">
+                <input id="player2-name-input" value="Player 2" oninput="setPlayer2Name()">
+                <br /><br />
+
+                <div class="button-container">
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer2Winners()">Winner</button>
+                        <button class="button" onclick="incrementPlayer2Errors()">Unforced error</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer2ThirdShotDrop()">Third shot drop</button>
+                        <button class="button" onclick="incrementPlayer2ThirdShotDrive()">Third shot drive</button>
+                    </div>
+                    <div class="row">
+                        <button class="button">Speed up won</button>
+                        <button class="button">Speed up lost</button>
+                    </div>
+                    <div class="row">
+                        <button class="button">Shot Player 1</button>
+                        <button class="button">Shot Player 2</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer2Dink()">Dink</button>
+                        <button class="button">Timeout</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer2Score()">+1</button>
+                        <button class="button" onclick="decrementPlayer2Score()">-1</button>
+                    </div>
+                    <div class="row">
+                        <button class="button" onclick="incrementPlayer2Lob()">Lob</button>
+                        <button class="button" onclick="incrementPlayer2Erne()">Erne</button>
+                        <button class="button" onclick="incrementPlayer2ATP()">ATP</button>
+                    </div>
+
+                    <div class="row">
+                        <button class="button" onclick="undo()">Undo</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="container">
-            <input id="player2-name-input" value="Player 2" oninput="setPlayer2Name()">
-            <br /><br />
-
-            <div class="button-container">
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer2Winners()">Winner</button>
-                    <button class="button" onclick="incrementPlayer2Errors()">Unforced error</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer2ThirdShotDrop()">Third shot drop</button>
-                    <button class="button" onclick="incrementPlayer2ThirdShotDrive()">Third shot drive</button>
-                </div>
-                <div class="row">
-                    <button class="button">Speed up won</button>
-                    <button class="button">Speed up lost</button>
-                </div>
-                <div class="row">
-                    <button class="button">Shot Player 1</button>
-                    <button class="button">Shot Player 2</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer2Dink()">Dink</button>
-                    <button class="button">Timeout</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer2Score()">+1</button>
-                    <button class="button" onclick="decrementPlayer2Score()">-1</button>
-                </div>
-                <div class="row">
-                    <button class="button" onclick="incrementPlayer2Lob()">Lob</button>
-                    <button class="button" onclick="incrementPlayer2Erne()">Erne</button>
-                    <button class="button" onclick="incrementPlayer2ATP()">ATP</button>
-                </div>
-
-                <div class="row">
-                    <button class="button" onclick="undo()">Undo</button>
-                </div>
-            </div>
+        <div id="plot2">
         </div>
     </div>
 
