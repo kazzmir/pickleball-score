@@ -12,10 +12,15 @@ function makePlayer(id){
             'lob': 0,
             'erne': 0,
             'atp': 0,
-        }
+        },
+        // score over time
+        'x': [],
+        // rally over time
+        'y': [],
     }
 }
 
+let totalRallies = 1
 let serveTurn = 1;
 
 let player1 = makePlayer(1);
@@ -27,8 +32,10 @@ function elem(id){
     return document.getElementById(id);
 }
 
+const PlotName = 'plot2'
+
 function init(){
-    var plot = elem('plot2')
+    var plot = elem(PlotName)
 
     let rallyLayout = {
         title: 'Rally flow',
@@ -44,16 +51,44 @@ function init(){
         },
     }
 
-    let plotRuns = Plotly.newPlot(plot, [{x: [], y: []}, {x:[], y:[]}], rallyLayout)
+    let plotRuns = Plotly.newPlot(plot, [{...player1}, {...player2}], rallyLayout)
 
     window.onresize = () => {
         Plotly.Plots.resize(plot)
     }
 }
 
+function updateRallyPlot(){
+    let x1 = [...player1.x]
+
+    let trace1 = {x: [...player1.x], y: [...player1.y], name: player1.name}
+    let trace2 = {x: [...player2.x], y: [...player2.y], name: player2.name}
+
+    let rangeX = Math.floor((Math.max(...x1, 15) + 5) / 5) * 5
+
+    let transition = {
+        transition: {
+            duration: 300,
+            easing: 'cubic-in-out'
+        },
+        frame: {
+            duration: 300
+        }
+    }
+
+    Plotly.animate(PlotName, {
+        data: [trace1, trace2],
+        traces: [0, 1],
+        layout: {xaxis: {range: [1, rangeX]}}
+    }, transition).then(() => {
+        // console.log("did animate")
+    })
+}
+
 function undo(){
     if (undoLog.length > 0){
-        undoLog.pop()();
+        let f = undoLog.pop()
+        f()
     }
 }
 
@@ -78,6 +113,8 @@ function updateStats(player){
 function incrementScore(player, amount){
     player.score += amount;
     updateStats(player);
+
+    updateRallyPlot()
 
     undoLog.push(() => {
         player.score -= amount;
@@ -147,6 +184,15 @@ function incrementWinners(player){
     player.stats.winners += 1;
     let undo = maybeAddPoint(player);
     updateStats(player);
+
+    player1.x.push(totalRallies)
+    player1.y.push(player1.score)
+    player2.x.push(totalRallies)
+    player2.y.push(player2.score)
+
+    updateRallyPlot()
+
+    totalRallies += 1
 
     undoLog.push(() => {
         player.stats.winners -= 1;
